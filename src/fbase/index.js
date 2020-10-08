@@ -1,6 +1,5 @@
 import firebase from 'firebase/app';
 
-
 const config = {
     apiKey: "AIzaSyDm-cBda52og0hDDInoC0jJhVoiNgTQnGY",
     authDomain: "msgapp-aa26a.firebaseapp.com",

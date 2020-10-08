@@ -3,6 +3,8 @@ import {  Form, Container, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+import { connect } from 'react-redux';
+import { registerUser } from '../../../store/actions'
 
 class Login extends Component {
     state = {
@@ -29,6 +31,7 @@ class Login extends Component {
 
 
     render(){
+        console.log(this.props)
         const {register} = this.state;
         return(
             <Container>
@@ -87,7 +90,8 @@ class Login extends Component {
             </Container>
         )
     }
-
 }
 
-export default Login;
+const mapStateToProps = state => ({ auth: state.auth})
+
+export default connect(mapStateToProps)(Login);
