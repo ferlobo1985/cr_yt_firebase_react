@@ -12,21 +12,75 @@ class Login extends Component {
     
     formikProps = {
         initialValues:{ email:'',password:''},
-        validationSchema:Yup.object(),
+        validationSchema:Yup.object({
+            email: Yup.string().required('Sorry, this is required').email('Sorry this is not an email'),
+            password: Yup.string().required('Sorry, this is required'),
+        }),
         onSubmit: values => {
             console.log(values)
         }
     }
 
+    handleFormType = () => {
+        this.setState( prevState => ({
+            register: !prevState.register
+        }))
+    }
+
+
     render(){
+        const {register} = this.state;
         return(
             <Container>
                 <Formik {...this.formikProps}>
                 { formik => (
-                    <Form className="mt-5">
+                    <Form className="mt-5" onSubmit={ formik.handleSubmit }>
                         <h1 className="h3 mb-3 font-weight-normal">
                             Log in
                         </h1>
+
+                        <Form.Control
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            onChange={formik.handleChange}
+                            value={formik.values.email}
+                        />
+                        { formik.errors.email && formik.touched.email ?
+                            <div>{ formik.errors.email }</div>
+                        :null}
+
+                        <hr/>
+
+                        <Form.Control
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            onChange={formik.handleChange}
+                            value={formik.values.password}
+                        />
+                        { formik.errors.password && formik.touched.password ?
+                            <div>{ formik.errors.password }</div>
+                        :null}
+
+                        <Button
+                            className="mt-4"
+                            variant="primary"
+                            type="submit"
+                        >
+                          { !register ? 'Sign in':'Register'}
+                        </Button>
+
+                        <div className="mt-3">
+                            { register ? 'Need to sign in':'Not registered'} click
+                            <b><span
+                                onClick={ ()=> this.handleFormType() }
+                            > Here </span></b> 
+                            to { register ? 'Sign in':'Register'}
+                        </div>
+
                     </Form>
                 ) }
                 </Formik>
