@@ -11,6 +11,8 @@ export default function(state=INITIAL_STATE,action){
             return {...state,user: null, isAuth: false }
         case 'ADD_MESSAGE':
             return {...state, lastMsgAdded: action.payload }
+        case 'FETCH_POSTS':
+            return {...state, ...action.payload }
         default:
             return state
     }   

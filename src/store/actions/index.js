@@ -20,11 +20,14 @@ export const logoutUser = () => ({
     payload:  api.logoutUser()
 })
 
-
-
 export const addMessage = (data,user) => ({
     type:'ADD_MESSAGE',
     payload:  api.addMessage(data,user)
+})
+
+export const fetchPosts = () => ({
+    type:'FETCH_POSTS',
+    payload:  api.fetchPosts()
 })
 
 
