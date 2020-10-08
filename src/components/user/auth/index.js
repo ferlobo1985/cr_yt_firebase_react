@@ -3,6 +3,9 @@ import {  Form, Container, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+import { connect } from 'react-redux';
+import { registerUser } from '../../../store/actions';
+
 
 class Login extends Component {
     state = {
@@ -17,7 +20,16 @@ class Login extends Component {
             password: Yup.string().required('Sorry, this is required'),
         }),
         onSubmit: values => {
-            console.log(values)
+            this.submitForm(values)
+        }
+    }
+
+    submitForm = (values) => {
+        if(this.state.register){
+            // register
+            this.props.dispatch(registerUser(values))
+        } else {
+            // login
         }
     }
 
@@ -90,4 +102,5 @@ class Login extends Component {
 
 }
 
-export default Login;
+const mapStateToProps = state => ({auth: state.auth})
+export default connect(mapStateToProps)(Login);
