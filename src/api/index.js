@@ -1,6 +1,8 @@
 import firebase from 'firebase/app'
 
-import { usersCollection } from '../fbase';
+import { usersCollection, postsCollection } from '../fbase';
+
+const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
 
 export const registerUser = async({email, password}) => {
     try {
@@ -54,4 +56,19 @@ export const autoSignIn = () => (
 
 export const logoutUser = () => (
     firebase.auth().signOut()
+)
+
+export const addMessage = (data,user) => (
+    postsCollection.add({
+        ...data,
+        createdAt:serverTimestamp(),
+        author:{
+            ownerId: user.uid,
+            email: user.email
+        }
+    }).then( docRef =>{
+        return docRef.id
+    }).catch( err =>{
+        return err
+    })
 )

@@ -17,4 +17,5 @@ const fBaseApp = firebase.initializeApp(config);
 
 
 export const DB = fBaseApp.firestore();
-export const usersCollection = DB.collection('users')
+export const usersCollection = DB.collection('users');
+export const postsCollection = DB.collection('posts')

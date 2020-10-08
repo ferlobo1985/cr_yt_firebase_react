@@ -4,6 +4,7 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Header from './components/header';
 import Home from './components/home';
 import Login from './components/user/auth';
+import AddPost from './components/user/post';
 
 import { connect } from 'react-redux';
 import { autoSignIn } from './store/actions';
@@ -27,6 +28,7 @@ class Routes extends Component {
                 auth={auth}
             />
             <Switch>
+                <Route path="/user/addpost" component={AddPost}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/" component={Home}/>
             </Switch>
