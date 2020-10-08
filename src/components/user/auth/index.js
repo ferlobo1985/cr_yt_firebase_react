@@ -20,9 +20,17 @@ class Login extends Component {
 
     render(){
         return(
-            <>
-                login
-            </>
+            <Container>
+                <Formik {...this.formikProps}>
+                { formik => (
+                    <Form className="mt-5">
+                        <h1 className="h3 mb-3 font-weight-normal">
+                            Log in
+                        </h1>
+                    </Form>
+                ) }
+                </Formik>
+            </Container>
         )
     }
 
