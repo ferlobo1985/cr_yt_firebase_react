@@ -4,17 +4,16 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { connect } from 'react-redux';
-import { registerUser } from '../../../store/actions';
+import { registerUser, loginUser } from '../../../store/actions';
 
 
 class Login extends Component {
     state = {
-        register: false,
-        loading: false
+        register: false
     }
     
     formikProps = {
-        initialValues:{ email:'',password:''},
+        initialValues:{ email:'steve@gmail.com',password:'testing123'},
         validationSchema:Yup.object({
             email: Yup.string().required('Sorry, this is required').email('Sorry this is not an email'),
             password: Yup.string().required('Sorry, this is required'),
@@ -27,9 +26,23 @@ class Login extends Component {
     submitForm = (values) => {
         if(this.state.register){
             // register
-            this.props.dispatch(registerUser(values))
+            this.props.dispatch(registerUser(values)).then(
+                ({payload}) => this.handleRedirection(payload)
+            )
         } else {
             // login
+            this.props.dispatch(loginUser(values)).then(
+                ({payload}) => this.handleRedirection(payload)
+            )
+
+        }
+    }
+
+    handleRedirection = result => {
+        if(result.error){
+            console.log(result.error)
+        } else{ 
+            return this.props.history.push('/dashboard');
         }
     }
 

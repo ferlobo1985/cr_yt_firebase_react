@@ -17,3 +17,21 @@ export const registerUser = async({email, password}) => {
         return { error: error.message }
     }
 }
+
+export const loginUser = ({email, password}) => (
+    firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then( response => {
+        //console.log(response.user);
+        return {
+            isAuth: true, 
+            user:{
+                uid: response.user.uid,
+                email: response.user.email
+            } 
+        }
+    }).catch(error=> {
+        return { error: error.message }
+    })
+)
